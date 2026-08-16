@@ -14,16 +14,20 @@ Engineered specifically for catastrophe risk modeling analysts, exposure manager
 ## 📑 Table of Contents
 1. [Pipeline Overview & Architecture](#-pipeline-overview--architecture)
 2. [Supported Data Schemas (8 CSV Datasets)](#-supported-data-schemas-8-csv-datasets)
-3. [Comprehensive Analytical Breakdown](#-comprehensive-analytical-breakdown)
+3. [Visual Dashboards & Analytical Plots](#-visual-dashboards--analytical-plots)
+   - [Figure 1: Month-over-Month Portfolio Movement Dashboard](#figure-1-month-over-month-portfolio-movement-dashboard)
+   - [Figure 2: Enterprise AI & Deep Learning Suite](#figure-2-enterprise-ai--deep-learning-suite)
+   - [Figure 3: Machine Learning Outliers & PCA Risk Clusters](#figure-3-machine-learning-outliers--pca-risk-clusters)
+4. [Comprehensive Analytical Breakdown](#-comprehensive-analytical-breakdown)
    - [Phase 1: Standalone Multi-Table Deep EDA](#phase-1-standalone-multi-table-deep-eda)
    - [Phase 2: Relational Loc ⨝ Pol Merging & Match Diagnostics](#phase-2-relational-loc--pol-merging--match-diagnostics)
    - [Phase 3: Financial & Underwriting Metrics](#phase-3-financial--underwriting-metrics)
    - [Phase 4: Month-over-Month (MoM) Reconciliation & Waterfall Bridges](#phase-4-month-over-month-mom-reconciliation--waterfall-bridges)
-   - [Phase 5: Enterprise AI & Deep Learning Suite](#phase-5-enterprise-ai--deep-learning-suite)
+   - [Phase 5: Enterprise AI & Deep Learning Suite Details](#phase-5-enterprise-ai--deep-learning-suite-details)
    - [Phase 6: Native SQL Server / ANSI SQL CTE Repository](#phase-6-native-sql-server--ansi-sql-cte-repository)
-4. [Output Deliverables & Generated Artifacts](#-output-deliverables--generated-artifacts)
-5. [Installation & Execution Guide](#-installation--execution-guide)
-6. [Mathematical & Statistical Formulations](#-mathematical--statistical-formulations)
+5. [Output Deliverables & Generated Artifacts](#-output-deliverables--generated-artifacts)
+6. [Installation & Execution Guide](#-installation--execution-guide)
+7. [Mathematical & Statistical Formulations](#-mathematical--statistical-formulations)
 
 ---
 
@@ -87,6 +91,38 @@ The pipeline dynamically reads, case-normalizes, and types **8 input files**:
 ### 3. Policy Financial Tables (`*RMS_Pol_*.csv`)
 * **Primary Key:** Composite Key `(ACCNTNUM, POLICYNUM)`
 * **Columns (13):** `ACCNTNUM`, `ACCNTNAME`, `PRODNAME`, `CEDANTID`, `CEDANTNAME`, `POLICYNUM`, `LOBNAME`, `POLICYTYPE`, `BLANPREAMT`, `BLANPRECUR`, `USERDEF1`, `USERDEF2`, `BLANLIMAMT`.
+
+---
+
+## 📈 Visual Dashboards & Analytical Plots
+
+The pipeline automatically generates three high-resolution multi-panel visual suites:
+
+### Figure 1: Month-over-Month Portfolio Movement Dashboard
+![Month-over-Month Portfolio Movement Dashboard](./rms_eda_mom_comparison.png)
+
+* **Top-Left (Top States TIV Comparison):** Compares March 2026 vs. April 2026 exposure values ($ Millions) across high-hazard regions (e.g., Florida, Texas, North Carolina, Louisiana).
+* **Top-Right (Coverage Component Breakdown):** Decomposes total exposure into Building (`CV4`), Other Structures (`CV5`), Contents (`CV6`), and Business Interruption / Time Element (`CV7`).
+* **Bottom-Left (Rate on Line KDE Density):** Non-parametric Kernel Density Estimation (KDE) tracking portfolio rate hardening from March to April.
+* **Bottom-Right (Construction Class Exposure):** Horizontal bar chart comparing Total Insured Value by primary structural class (Reinforced Concrete, Steel Frame, Wood Light Frame, Masonry).
+
+---
+
+### Figure 2: Enterprise AI & Deep Learning Suite
+![Enterprise AI & Deep Learning Suite](./rms_ai_deep_learning_suite.png)
+
+* **Top-Left (Deep Autoencoder Reconstruction MSE Loss):** Probability density of neural reconstruction errors with a marked **97th percentile anomaly cutoff threshold** for unmapped non-linear risks.
+* **Top-Right (Deep MLP Neural Pricing Calibration):** Scatter plot of deep neural predicted premium vs. actual blanket premium with a 45-degree calibration line highlighting underpriced and overpriced contracts.
+* **Bottom-Left (Population Stability Index - PSI Feature Drift Ranking):** Feature drift ranking displaying features crossing the **0.10 moderate drift** and **0.25 severe drift** boundaries.
+* **Bottom-Right (Single-Risk Exceedance Probability Curve):** Empirical log-log Exceedance Probability (EP) curve quantifying portfolio tail exposure concentration at the 1-in-20, 1-in-100, and 1-in-200 year return period levels.
+
+---
+
+### Figure 3: Machine Learning Outliers & PCA Risk Clusters
+![Machine Learning Outliers & PCA Risk Clusters](./rms_ml_diagnostics.png)
+
+* **Left Panel (Isolation Forest Outlier Detection):** Scatter plot of Floor Area (Thousand Sq Ft) vs. Total Insured Value ($ Millions) with flagged anomalous policies highlighted in red.
+* **Right Panel (PCA 2D Projection of Risk Clusters):** Unsupervised 2D Principal Component Analysis (PCA) projection of portfolio exposure clusters (Mega Commercial, Mid-Market CRE, Light Industrial, High-Volume Residential).
 
 ---
 
@@ -158,7 +194,7 @@ $$\text{Premium}_{\text{April}} = \text{Premium}_{\text{March}} - \text{Premium}
 
 ---
 
-### Phase 5: Enterprise AI & Deep Learning Suite
+### Phase 5: Enterprise AI & Deep Learning Suite Details
 
 #### DL 1: Deep Neural Autoencoder (Latent Representations & Reconstruction Outliers)
 * **Architecture:** Fully connected symmetric deep autoencoder:
@@ -215,6 +251,7 @@ Upon running `updated_EDA_pipeline.py`, the pipeline automatically produces:
 | :--- | :---: | :--- |
 | **`rms_eda_mom_comparison.png`** | Image (PNG) | 4-Panel visual dashboard: State TIV comparisons, Coverage component splits, Rate-on-Line KDE density distributions, and Construction class exposures. |
 | **`rms_ai_deep_learning_suite.png`** | Image (PNG) | 4-Panel AI dashboard: Autoencoder MSE loss distribution, Deep MLP predicted vs. actual premium, PSI feature drift ranking, and empirical EP curve. |
+| **`rms_ml_diagnostics.png`** | Image (PNG) | 2-Panel ML dashboard: Isolation Forest floor area vs TIV anomaly scatter plot and PCA 2D cluster projection. |
 | **`RMS_Exposure_Analytics_Report.html`** | Interactive HTML | Executive-ready dashboard with embedded KPI metric cards, interactive tables, and base64-encoded visual plots. |
 | **`rms_kpi_comparison_mom.csv`** | Audit CSV | Portfolio KPI roll-up comparing March 2026 vs. April 2026 with absolute $\Delta$ and growth percentages. |
 | **`rms_state_exposure_drift_mom.csv`**| Audit CSV | State-by-state exposure drift matrix tracking TIV growth and location additions. |
